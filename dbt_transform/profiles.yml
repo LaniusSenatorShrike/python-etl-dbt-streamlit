@@ -1,0 +1,11 @@
+dwh_transform:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: postgres
+      password: Pp@639493
+      port: 5432
+      dbname: DWH
+      schema: public
