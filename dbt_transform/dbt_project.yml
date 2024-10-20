@@ -1,0 +1,29 @@
+name: 'dwh_transform'
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'dwh_transform'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analysis"]
+
+models:
+  +persist_docs:
+    relation: true
+    columns: true
+
+  base:
+    +materialized: view
+
+  staging:
+    +materialized: view
+    schema: stg
+
+tests:
+  +severity: 'warn'
+  +enabled: true
+  +store_failures: true
