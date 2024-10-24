@@ -1,11 +1,12 @@
 import os
 import shutil
 
-from utils.logger import get_logger, setup_logging
 from utils.constants import C
+from utils.logger import get_logger, setup_logging
 
 setup_logging()
 logger = get_logger(__name__)
+
 
 class FileHandler:
     def __init__(self):
@@ -98,7 +99,7 @@ class FileHandler:
             logger.error(f"An error occurred while checking if '{file_name}' is processed: {e}")
             return False
 
-    def validate_bucket_and_file(self,bucket_name, file_name):
+    def validate_bucket_and_file(self, bucket_name, file_name):
         """
         Validating if bucket exists and
         :return:
@@ -120,5 +121,3 @@ class FileHandler:
 
         logger.info(f"Bucket '{bucket_name}' and file '{file_name}' are valid for processing.")
         return True
-
-

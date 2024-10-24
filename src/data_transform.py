@@ -1,4 +1,5 @@
 import pandas as pd
+
 from utils.constants import C
 
 
@@ -23,7 +24,7 @@ class DataTransformer:
         :param data: Input data as a pandas DataFrame
         :return: DataFrame with cleaned column names
         """
-        data.columns = data.columns.str.replace(' ', '_').str.replace('(', '').str.replace(')', '').str.lower()
+        data.columns = data.columns.str.replace(" ", "_").str.replace("(", "").str.replace(")", "").str.lower()
 
         return data
 
@@ -35,10 +36,10 @@ class DataTransformer:
         :return: DataFrame with standardized date columns
         """
         for column in data.columns:
-            if 'date' in column.lower():  # Check if 'date' is in the column name (case-insensitive)
+            if "date" in column.lower():  # Check if 'date' is in the column name (case-insensitive)
                 try:
                     # Try to convert the column to datetime format
-                    data[column] = pd.to_datetime(data[column], format='%m/%d/%y %H:%M', errors='raise')
+                    data[column] = pd.to_datetime(data[column], format="%m/%d/%y %H:%M", errors="raise")
                 except (ValueError, TypeError):
                     # If conversion fails, skip the column and leave it unchanged
                     pass
@@ -57,7 +58,7 @@ class DataTransformer:
         """
 
         # Filling missing values with forward fill
-        data = data.fillna('NULL')
+        data = data.fillna("NULL")
 
         # Removing duplicate records
         data = data.drop_duplicates()
@@ -79,7 +80,7 @@ class DataTransformer:
         data.set_index(primary_key, drop=False, inplace=True)
 
         # Store the primary key and foreign keys in a dictionary in _metadata
-        data._metadata = {'primary_key': primary_key, 'foreign_keys': foreign_keys}
+        data._metadata = {"primary_key": primary_key, "foreign_keys": foreign_keys}
 
         return data
 
@@ -91,14 +92,11 @@ class DataTransformer:
         :return: Dictionary with primary key and foreign keys
         """
         # Retrieve the primary key and foreign keys from _metadata
-        primary_key = data._metadata.get('primary_key', None)
-        foreign_keys = data._metadata.get('foreign_keys', [])
+        primary_key = data._metadata.get("primary_key", None)
+        foreign_keys = data._metadata.get("foreign_keys", [])
 
         # Print or return the relational schema information
-        schema_info = {
-            'Primary Key': primary_key,
-            'Foreign Keys': foreign_keys
-        }
+        schema_info = {"Primary Key": primary_key, "Foreign Keys": foreign_keys}
 
         return schema_info
 
@@ -108,5 +106,5 @@ class DataTransformer:
         """
         result = data.groupby(group_by_column)[aggregation_column].sum().reset_index()
         # Rename the columns for clarity
-        result.columns = [group_by_column, 'total_spending']
+        result.columns = [group_by_column, "total_spending"]
         return result
