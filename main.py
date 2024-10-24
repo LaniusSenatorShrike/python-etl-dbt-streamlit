@@ -1,11 +1,11 @@
 import logging
 import re
-from utils.constants import C
-from utils.logger import get_logger, setup_logging
-from utils.file_handler import FileHandler
-from src.data_transform import DataTransformer
 
+from src.data_transform import DataTransformer
+from utils.constants import C
 from utils.database_engine_connection import DatabaseEngineConnection
+from utils.file_handler import FileHandler
+from utils.logger import get_logger, setup_logging
 
 # Setup logging
 setup_logging()
@@ -26,7 +26,7 @@ def main():
     contents = handler.get_contents(C.SOURCE_BUCKET)
 
     for file in contents:
-        filename = re.sub(r'\.csv$', '', file)
+        filename = re.sub(r"\.csv$", "", file)
         try:
             logger.info(f"Bucket and file validation initiated for {file}")
             handler.validate_bucket_and_file(C.SOURCE_BUCKET, file)
@@ -44,7 +44,9 @@ def main():
 
             # if primary key dict is not empty
             if C.PK:
-                logger.info(f"Applying relational schema for {file} with primary key {primary_key} and foreign keys {foreign_keys}")
+                logger.info(
+                    f"Applying relational schema for {file} with primary key {primary_key} and foreign keys {foreign_keys}"
+                )
                 # Check and print the schema information with transformer.check_relational_schema
                 handled_std_data_idx = transformer.create_relational_schema(handled_std_data, primary_key, foreign_keys)
             else:
@@ -52,9 +54,11 @@ def main():
                 handled_std_data_idx = handled_std_data
 
             # Calculate total spending per user (for transactions.csv)
-            if filename == 'transactions':
+            if filename == "transactions":
                 logger.info(f"Calculating total spending per user for {file}")
-                total_spending_per_user = transformer.calculate_total_spending_per_user(handled_std_data_idx, 'customer_id', 'total')
+                total_spending_per_user = transformer.calculate_total_spending_per_user(
+                    handled_std_data_idx, "customer_id", "total"
+                )
 
                 # Ingest total spending per user into a separate table
                 spending_table_name = "total_spending_per_user"
@@ -72,6 +76,6 @@ def main():
             logger.error(f"File moved to failed bucket due to error: {e}")
             handler.move_file(C.PROCESSING_BUCKET, C.FAILED_BUCKET, file)
 
+
 if __name__ == "__main__":
     main()
-

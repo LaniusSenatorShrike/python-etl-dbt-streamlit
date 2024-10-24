@@ -4,8 +4,9 @@ and utility functions to set up and manager logger for python applications
 """
 
 import logging
-import sys
 import os
+import sys
+
 
 def setup_logging():
     """
@@ -13,10 +14,9 @@ def setup_logging():
     """
 
     logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(module)s - %(levelname)s: %(message)s",
-        stream= sys.stdout
+        level=logging.INFO, format="%(asctime)s - %(module)s - %(levelname)s: %(message)s", stream=sys.stdout
     )
+
 
 def get_logger(name):
     return logging.getLogger(name)

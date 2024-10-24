@@ -12,21 +12,21 @@ class Constants:
     BASE_PATH: str = "/home/lanius/PythonProjects/Stream_Data_Engineering_Task"
 
     POSTGRES_TABLE = {
-        'transactions.csv': 'transactions',
-        'users.csv': 'users',
-        'products.csv': 'products',
+        "transactions.csv": "transactions",
+        "users.csv": "users",
+        "products.csv": "products",
     }
 
     # primary keys
     PK = {
-        'transactions.csv': 'transaction_id',
-        'users.csv': 'customer_id',
-        'products.csv': 'subscription_id',
+        "transactions.csv": "transaction_id",
+        "users.csv": "customer_id",
+        "products.csv": "subscription_id",
     }
 
     # foreign keys
     FK = {
-        'transactions.csv': ['customer_id','subscription_id'],
+        "transactions.csv": ["customer_id", "subscription_id"],
     }
 
     # postgres server
@@ -37,5 +37,6 @@ class Constants:
     PORT: str = "5432"
     DBNAME: str = "DWH"
     SCHEMA: str = "public"
+
 
 C = Constants()

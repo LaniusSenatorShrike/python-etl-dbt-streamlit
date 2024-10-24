@@ -1,18 +1,15 @@
-import streamlit as st
+import pandas as pd
 import plotly.express as px
 import psycopg2
-import pandas as pd
+import streamlit as st
 from constants import C
+
 
 # Function to connect to PostgreSQL
 def get_connection():
-    conn = psycopg2.connect(
-        host=C.HOST,
-        database=C.DBNAME,
-        user=C.USER,
-        password=C.PASSWORD
-    )
+    conn = psycopg2.connect(host=C.HOST, database=C.DBNAME, user=C.USER, password=C.PASSWORD)
     return conn
+
 
 # Function to fetch data from PostgreSQL
 def fetch_data(query):
@@ -25,10 +22,11 @@ def fetch_data(query):
     finally:
         conn.close()
 
+
 # Streamlit app UI
 st.title(":rainbow[Stream Pulse]")
 st.subheader(":blue[*A Business Analytics App*]")
-#vertical space
+# vertical space
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 
@@ -44,14 +42,14 @@ agg_monthly_rev_growth = fetch_data(agg_monthly_rev_growth_query)
 
 
 if product_cat_highest_sales is not None:
-    product_cat_highest_sales = product_cat_highest_sales['product'][0]
+    product_cat_highest_sales = product_cat_highest_sales["product"][0]
 else:
     st.write("No data found or error in the query.")
     product_metric = "N/A"
 
 st.metric(label=":blue[Top Product Category]", value=product_cat_highest_sales)
 
-#vertical space
+# vertical space
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # Create two equal columns for the charts
@@ -62,14 +60,13 @@ with col1:
     if avg_user_trans is not None and not avg_user_trans.empty:
         st.write(":blue[Average User Transaction Amount]")
         # Create bar chart using Plotly
-        fig1 = px.bar(avg_user_trans,
-                     x='month',
-                     y='avg_transaction_amount',
-                     labels={'transaction_month': 'Month', 'avg_transaction_amount': 'Average Transaction Amount'}
-                     )
-        fig1.update_layout(
-            height=315
+        fig1 = px.bar(
+            avg_user_trans,
+            x="month",
+            y="avg_transaction_amount",
+            labels={"transaction_month": "Month", "avg_transaction_amount": "Average Transaction Amount"},
         )
+        fig1.update_layout(height=315)
         # Display chart in the first column
         st.plotly_chart(fig1, use_container_width=True)
     else:
@@ -79,14 +76,13 @@ with col1:
 with col2:
     if agg_monthly_rev_growth is not None and not agg_monthly_rev_growth.empty:
         st.write(":blue[Monthly Revenue Growth]")
-        fig2 = px.line(agg_monthly_rev_growth,
-                      x='month',
-                      y='revenue_growth_percent',  # Changed to a more descriptive y-axis label
-                      labels={'month': 'Month', 'revenue_growth_percent': 'Revenue Growth (%)'}
-                      )
-        fig2.update_layout(
-            height=315
+        fig2 = px.line(
+            agg_monthly_rev_growth,
+            x="month",
+            y="revenue_growth_percent",  # Changed to a more descriptive y-axis label
+            labels={"month": "Month", "revenue_growth_percent": "Revenue Growth (%)"},
         )
+        fig2.update_layout(height=315)
 
         # Display chart in the second column
         st.plotly_chart(fig2, use_container_width=True)

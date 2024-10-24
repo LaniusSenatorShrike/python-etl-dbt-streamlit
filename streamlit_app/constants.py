@@ -14,4 +14,5 @@ class Constants:
     DBNAME: str = "DWH"
     SCHEMA: str = "public"
 
+
 C = Constants()
