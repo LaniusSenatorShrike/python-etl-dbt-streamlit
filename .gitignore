@@ -1,5 +1,5 @@
 coverage.xml
 .coverage
 results.xml
-utils/__pycache__
+utils/__pycache__/
 tests/unit/__pycache__/
