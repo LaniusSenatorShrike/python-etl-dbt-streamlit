@@ -22,7 +22,7 @@ moved to `Success` or `Failed` bucket.
 Please refer to [start_postgres.sh](start_postgres.sh) to check up on 
 how to spin up a postgres server. 
 
-### Unit test
+### Unit testing
 
 To run the unit test, follow the below steps: 
 
@@ -30,7 +30,7 @@ To run the unit test, follow the below steps:
 2. set the `PYTHONPATH` to root: `export PYTHONPATH=$PYTHONPATH:$(pwd)/src`
 3. compile the `requirements.in`: `pip-compile requirements.in`
 4. install `requirements.text` packages: `pip install -r requirements.txt`
-5. Now you can execute the unit tests: `pytest tests/unit/test.py -s -v -q -vv --cov=src --cov-fail-under=80 --cov-report=xml --junitxml=results.xml`
+5. Now you can execute the unit tests: `pytest tests/unit/test.py -s -v -q -vv --cov=utils --cov-fail-under=80 --cov-report=xml --junitxml=results.xml`
 
 
 
