@@ -34,12 +34,14 @@ To run the unit test, follow the below steps:
 
 ### Linting
 
-`flake8` is a well-known package for linting in python. 
+`flake8` is a well-known package for linting in python. `isort` is used to sort imported modules.
+Also `black` is added as a code formatter.
 Here is how to use it: 
 1. `flake8` and `pre-commit` is already included in `requirements.in` and they will be installed
 2. install the pre-commit hook via `pre-commit install`
 3. Run `pre-commit run --all-files`
 
+![linter.png](figs/linter.png)
 
 ## Transformation
 
